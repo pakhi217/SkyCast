@@ -53,6 +53,42 @@ prompts - Fast server-side lookup
 -   Open-Meteo API
 -   IP Geolocation (ipapi.co / ip-api.com)
 
+
+# 📂 Folder Structure
+
+```
+SkyCast/
+├── app.py
+├── config.py
+├── requirements.txt
+├── README.md
+├── .env.example
+├── .gitignore
+│
+├── services/
+│   └── weather_service.py
+│
+├── utils/
+│   └── helpers.py
+│
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── forecast.html
+│   ├── settings.html
+│   ├── about.html
+│   ├── 404.html
+│   └── 500.html
+│
+└── static/
+    ├── css/
+    │   └── style.css
+    └── images/
+        └── favicon.svg
+```
+
+---
+
 ## 🚀 Installation
 
 ``` bash
