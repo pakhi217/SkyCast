@@ -245,51 +245,30 @@ def get_weather_bundle(city):
     }
 def get_location_from_ip(ip_address):
     """
-    Resolve an approximate city from a visitor's IP address using the
-    free ipapi.co IP-geolocation service. This requires no JavaScript
-    or browser permission prompts -- it happens entirely server-side,
-    using the IP address the Flask request arrived from.
-
-    Note: this gives a city-level approximation (based on the visitor's
-    ISP), not precise GPS location.
-
-    Args:
-        ip_address (str | None): The visitor's IP address.
-
-    Returns:
-        str: The detected city name.
-
-    Raises:
-        WeatherServiceError: If the IP can't be geolocated.
+    Detect the visitor's approximate city from their IP address.
+    Falls back to ipapi's own IP detection when running locally.
     """
-    # Private/local IPs (e.g. 127.0.0.1 during local development) can't
-    # be geolocated. In that case, ipapi.co's own "/json/" endpoint
-    # (no IP specified) falls back to geolocating the server's own
-    # public IP -- the best available approximation for local testing.
-    private_prefixes = ("127.", "10.", "192.168.", "::1")
-    if not ip_address or ip_address.startswith(private_prefixes):
+
+    if not ip_address or ip_address in ("127.0.0.1", "::1"):
         url = "https://ipapi.co/json/"
     else:
         url = f"https://ipapi.co/{ip_address}/json/"
 
     try:
         response = requests.get(url, timeout=Config.REQUEST_TIMEOUT)
+        response.raise_for_status()
     except requests.exceptions.RequestException:
         raise WeatherServiceError(
             "Could not detect your location. Please search for a city instead."
         )
 
-    if not response.ok:
-        raise WeatherServiceError(
-            "Could not detect your location. Please search for a city instead."
-        )
-
     data = response.json()
+
     city = data.get("city")
 
     if not city:
         raise WeatherServiceError(
-            "Could not determine your city from your IP address. Please search manually."
+            "Could not determine your city from your IP address."
         )
 
     return city

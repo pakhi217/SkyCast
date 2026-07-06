@@ -186,9 +186,7 @@ def locate():
     (server-side -- no JavaScript or browser geolocation prompt
     involved) and redirect to the dashboard for that city.
     """
-    ip_address = request.headers.get("X-Forwarded-For", request.remote_addr)
-    if ip_address:
-        ip_address = ip_address.split(",")[0].strip()
+    ip_address = request.remote_addr
 
     try:
         city = get_location_from_ip(ip_address)
