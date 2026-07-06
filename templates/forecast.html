@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}SkyCast — 7-Day Forecast{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <section class="empty-state fade-in-up">
+            <div class="empty-state-icon">☁</div>
+            <h2 class="empty-state-title">Hmm, we lost that city in the clouds.</h2>
+            <p class="empty-state-message">{{ error }}</p>
+            <p class="empty-state-hint">Go back to the Dashboard and try searching again.</p>
+        </section>
+
+    {% elif forecast %}
+
+        <section class="forecast-section" id="forecast">
+            <h3 class="section-title">7-Day Forecast for {{ weather.city }}, {{ weather.country }}</h3>
+
+            <div class="forecast-strip">
+                {% for day in forecast %}
+                <div class="forecast-card glass-card fade-in-up">
+                    <span class="forecast-day">{{ day.weekday }}</span>
+                    <span class="forecast-date">{{ day.date_label }}</span>
+                    <span class="forecast-icon weather-anim">{{ day.icon }}</span>
+                    <span class="forecast-description">{{ day.description }}</span>
+                    <div class="forecast-temps">
+                        <span class="forecast-max">{{ day.temp_max }}°</span>
+                        <span class="forecast-min">{{ day.temp_min }}°</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    {% else %}
+        <p class="forecast-unavailable">Forecast data is currently unavailable for this city.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | SkyCast</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-card glass-card fade-in-up">
+            <div class="error-code">404</div>
+            <div class="error-icon weather-anim">🌪</div>
+            <h1 class="error-title">This forecast doesn't exist.</h1>
+            <p class="error-message">The page you're looking for has drifted off the map. Let's get you back to clearer skies.</p>
+            <a href="/" class="error-button">Return to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

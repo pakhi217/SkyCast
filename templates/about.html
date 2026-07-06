@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}SkyCast — About{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block content %}
+
+    <section class="info-section" id="about">
+        <h3 class="section-title">About SkyCast</h3>
+        <div class="glass-card about-card">
+            <p>SkyCast is a lightweight, server-rendered weather dashboard built entirely with Flask, Jinja2, and hand-written CSS — no JavaScript frameworks required. Live conditions and forecasts are sourced from the free Open-Meteo API.</p>
+            <p style="margin-top: 14px;">Every page you see — Dashboard, Forecast, Settings, and this About page — is a genuine Flask route rendering its own template, not a single page with scroll anchors. That means each section works independently, even if a weather lookup happens to be unavailable.</p>
+        </div>
+    </section>
+
+{% endblock %}

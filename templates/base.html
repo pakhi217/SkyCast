@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SkyCast — Your Window to Real-Time Weather{% endblock %}</title>
+    <meta name="description" content="SkyCast is a premium real-time weather dashboard. Search any city for current conditions and a 7-day forecast.">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-mark">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="14" r="7" fill="#06B6D4" opacity="0.85"/>
+                        <circle cx="18" cy="12" r="9" fill="#3B82F6" opacity="0.9"/>
+                    </svg>
+                </span>
+                <div class="logo-text">
+                    <span class="logo-title">SkyCast</span>
+                    <span class="logo-tagline">Your Window to Real-Time Weather</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <span class="nav-section-label">Menu</span>
+                <a href="{{ url_for('dashboard') }}" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">
+                    <span class="nav-icon">▣</span> Dashboard
+                </a>
+                <a href="{{ url_for('forecast_page') }}" class="nav-link {% if active_page == 'forecast' %}active{% endif %}">
+                    <span class="nav-icon">☀</span> Forecast
+                </a>
+                <a href="{{ url_for('settings_page') }}" class="nav-link {% if active_page == 'settings' %}active{% endif %}">
+                    <span class="nav-icon">⚙</span> Settings
+                </a>
+                <a href="{{ url_for('about_page') }}" class="nav-link {% if active_page == 'about' %}active{% endif %}">
+                    <span class="nav-icon">ℹ</span> About
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-card">
+                    <p class="sidebar-card-title">Powered by</p>
+                    <p class="sidebar-card-body">Open-Meteo API</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============ MAIN CONTENT ============ -->
+        <div class="main-content">
+
+            <!-- ============ SHARED TOP HEADER ============ -->
+            <header class="top-header">
+                <div class="header-titles">
+                    <h1 class="page-title">{{ page_title }}</h1>
+                    <p class="page-date">{{ current_date }}</p>
+                </div>
+
+                {% block header_extra %}
+                <form action="{{ url_for('search') }}" method="POST" class="search-form">
+                    <span class="search-icon">⌕</span>
+                    <input
+                        type="text"
+                        name="city"
+                        class="search-input"
+                        placeholder="Search for a city… e.g. Tokyo, Berlin, Nairobi"
+                        value="{{ searched_city if searched_city else '' }}"
+                        autocomplete="off"
+                        required
+                    >
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+                <a href="{{ url_for('locate') }}" class="locate-button" title="Use my current location">📍</a>
+                {% endblock %}
+            </header>
+
+            {% block content %}{% endblock %}
+
+            <footer class="site-footer">
+                <div class="footer-left">
+                    <span class="footer-brand">SkyCast</span>
+                    <span class="footer-dot">•</span>
+                    <span>Built with Flask, HTML &amp; CSS</span>
+                </div>
+                <div class="footer-right">
+                    <span>Developed by Pakhi Saxena</span>
+                    <a href="https://github.com/pakhi217/SkyCast" target="_blank" rel="noopener noreferrer" class="footer-github">GitHub ↗</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>

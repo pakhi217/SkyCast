@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}SkyCast — Settings{% endblock %}
+
+{% block header_extra %}{% endblock %}
+
+{% block content %}
+
+    <section class="info-section" id="settings">
+        <h3 class="section-title">Display Settings</h3>
+        <div class="info-grid">
+            <div class="info-card glass-card">
+                <span class="info-label">Units</span>
+                <span class="info-value">{{ 'Fahrenheit (°F)' if units_label == '°F' else 'Celsius (°C)' }}</span>
+                <p class="info-hint">Change the <code>UNITS</code> variable in your <code>.env</code> file to switch between metric and imperial.</p>
+            </div>
+            <div class="info-card glass-card">
+                <span class="info-label">Active City</span>
+                <span class="info-value">{{ active_city }}</span>
+                <p class="info-hint">This updates automatically whenever you search for a new city on the Dashboard.</p>
+            </div>
+            <div class="info-card glass-card">
+                <span class="info-label">Default City</span>
+                <span class="info-value">{{ default_city }}</span>
+                <p class="info-hint">Set <code>DEFAULT_CITY</code> in <code>.env</code> to control the dashboard's starting location.</p>
+            </div>
+            <div class="info-card glass-card">
+                <span class="info-label">Weather Provider</span>
+                <span class="info-value">Open-Meteo</span>
+                <p class="info-hint">Free, keyless weather API — no account or API key required.</p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

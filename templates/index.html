@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}SkyCast — Dashboard{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <!-- ============ ERROR / EMPTY STATE ============ -->
+        <section class="empty-state fade-in-up">
+            <div class="empty-state-icon">☁</div>
+            <h2 class="empty-state-title">Hmm, we lost that city in the clouds.</h2>
+            <p class="empty-state-message">{{ error }}</p>
+            <p class="empty-state-hint">Check the spelling, or try “City, Country Code” (e.g. “Paris, FR”).</p>
+        </section>
+
+    {% elif weather %}
+
+        <!-- ============ CURRENT WEATHER HERO CARD ============ -->
+        <section class="hero-card glass-card fade-in-up">
+            <div class="hero-main">
+                <div class="hero-icon-wrap">
+                    <span class="hero-icon weather-anim">{{ weather.icon }}</span>
+                </div>
+                <div class="hero-info">
+                    <div class="hero-location">
+                        <h2 class="hero-city">{{ weather.city }}</h2>
+                        <span class="hero-country">{{ weather.country }}</span>
+                    </div>
+                    <p class="hero-description">{{ weather.description }}</p>
+                    <p class="hero-feelslike">Feels like {{ weather.feels_like }}{{ units_label }}</p>
+                </div>
+            </div>
+
+            <div class="hero-temp-block">
+                <span class="hero-temp">{{ weather.temp }}<sup>{{ units_label }}</sup></span>
+                <div class="hero-minmax">
+                    <span class="minmax-item">▲ {{ weather.temp_max }}{{ units_label }}</span>
+                    <span class="minmax-item">▼ {{ weather.temp_min }}{{ units_label }}</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TODAY'S HIGHLIGHTS ============ -->
+        <section class="highlights-section">
+            <h3 class="section-title">Today's Highlights</h3>
+            <div class="highlights-grid">
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Humidity</span>
+                    <span class="highlight-value">{{ weather.humidity }}<small>%</small></span>
+                    <span class="highlight-icon">💧</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Pressure</span>
+                    <span class="highlight-value">{{ weather.pressure }}<small>hPa</small></span>
+                    <span class="highlight-icon">⏱</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Wind Speed</span>
+                    <span class="highlight-value">{{ weather.wind_speed }}<small>{{ wind_label }}</small></span>
+                    <span class="highlight-icon">🌬</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Visibility</span>
+                    <span class="highlight-value">{{ weather.visibility_km }}<small>km</small></span>
+                    <span class="highlight-icon">👁</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">UV Index</span>
+                    <span class="highlight-value">{{ weather.uv_index }}</span>
+                    <span class="highlight-icon">🔆</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Sunrise</span>
+                    <span class="highlight-value small-value">{{ weather.sunrise }}</span>
+                    <span class="highlight-icon">🌅</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Sunset</span>
+                    <span class="highlight-value small-value">{{ weather.sunset }}</span>
+                    <span class="highlight-icon">🌇</span>
+                </div>
+
+                <div class="highlight-card glass-card fade-in-up">
+                    <span class="highlight-label">Cloud Cover</span>
+                    <span class="highlight-value">{{ weather.clouds }}<small>%</small></span>
+                    <span class="highlight-icon">☁</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ FORECAST PREVIEW (link to full page) ============ -->
+        <section class="forecast-teaser glass-card fade-in-up">
+            <div>
+                <h3 class="section-title" style="margin-bottom: 4px;">Want the full week ahead?</h3>
+                <p class="teaser-text">See the complete 7-day forecast for {{ weather.city }}.</p>
+            </div>
+            <a href="{{ url_for('forecast_page') }}" class="teaser-button">View Forecast →</a>
+        </section>
+
+    {% endif %}
+
+{% endblock %}
