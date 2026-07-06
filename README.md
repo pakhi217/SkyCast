@@ -5,6 +5,8 @@
 A premium server-rendered weather dashboard built with **Flask**,
 **Jinja2**, and **custom CSS**.
 
+<img width="1912" height="900" alt="image" src="https://github.com/user-attachments/assets/3f88340f-7301-48f4-a6a6-6cd2f4725baa" />
+
 ## 🌟 Key Highlights
 
 -   🌍 Automatic IP-Based User Location Detection (No JavaScript)
